@@ -9,7 +9,7 @@
 
 2. Kemudian untuk membuat fitur yang dimana dapat menampilkan seluruh kegiatan yang dilakukan oleh user maka saya menggunakan fungsi sebagai berikut :
    ``` Shell script
-void display_user_activities(char *username) {
+    void display_user_activities(char *username) {
     char filename[100];
     char line[100];  // Anda dapat menyesuaikan ukuran buffer sesuai dengan kebutuhan
     FILE *log_file;
@@ -33,10 +33,8 @@ void display_user_activities(char *username) {
 
     // Menutup file log setelah selesai membacanya
     fclose(log_file);
-}
-
-   ```
-   
+    }
+```
 
 ## Soal 3
 
