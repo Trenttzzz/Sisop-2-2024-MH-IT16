@@ -8,7 +8,7 @@
 1. Langkah awal yaitu saya membuat berkas baru yang bernama **admin.c** yang dimana berkas ini nantinya akan dijalankan menggunakan perintah `gcc -o admin admin.c`
 
 2. Kemudian untuk membuat fitur yang dimana dapat menampilkan seluruh kegiatan yang dilakukan oleh user maka saya menggunakan fungsi sebagai berikut :
-   ``` Shell script
+   ```c
     void display_user_activities(char *username) {
     char filename[100];
     char line[100];  // Anda dapat menyesuaikan ukuran buffer sesuai dengan kebutuhan
@@ -33,8 +33,7 @@
 
     // Menutup file log setelah selesai membacanya
     fclose(log_file);
-    }
-```
+sasasas
 
 ## Soal 3
 
