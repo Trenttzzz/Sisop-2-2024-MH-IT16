@@ -86,13 +86,11 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < num_users; i++) {
             if (users[i].monitoring) {
                 // Memantau aktivitas pengguna
-                // Contoh: Mencatat aktivitas pengguna di sini
                 log_activity(users[i].username, getpid(), "nama_kegiatan", 1);
             }
 
             if (users[i].control) {
                 // Implementasi logika pengendalian di sini
-                // Contoh: Menghalangi aktivitas pengguna
                 log_activity(users[i].username, getpid(), "nama_kegiatan_terblokir", 0);
             }
         }
