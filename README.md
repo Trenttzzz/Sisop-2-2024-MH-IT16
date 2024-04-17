@@ -4,9 +4,16 @@
 
 ## Soal 2
 
+## Soal 3
+
 ### Langkah - Langkah 
 1. Langkah awal yaitu saya membuat berkas baru yang bernama **admin.c** yang dimana berkas ini nantinya akan dijalankan
    menggunakan perintah `gcc -o admin admin.c`
+
+   Berikut adalah contoh bentuk file yang telah dibuat :
+
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/52435cbf-08a2-4d1f-8887-f9408a4c72b2)
+
 
 2. Kemudian untuk membuat fitur yang dimana dapat menampilkan seluruh kegiatan yang dilakukan oleh user maka saya
    menggunakan fungsi sebagai berikut :
@@ -35,6 +42,7 @@
 
     // Menutup file log setelah selesai membacanya
     fclose(log_file);
+   ```
 
 3. Pada langkah ini saya akan membuat program berjalan secara daemon dan berjalan terus menerus yang dimana adalah
    menggunakan
@@ -75,12 +83,36 @@
     fclose(log_file);
    }
    ```
+
+   Berikut adalah contoh output ketika saya menjalankan `admin -m user`. Dan maka aktivitas login akan tersimpan pada file
+   baru bernama *`user.log`* . Kemudian monitoring tersebut akan berhenti ketika saya menjankan `admin -s user` pada tab
+   terminal yang baru. Jika saya tidak menjalankan `admin -s user` maka otomatis program akan me-monitoring kegiatan user
+   setiap detik hingga saya mematikan fitur tersebut. Dan aktivitas tersebut akan menampilkan seperti template pada soal
+   yaitu  `[dd:mm:yyyy]-[hh:mm:ss]-pid_kegiatan-nama_kegiatan_GAGAL/JALAN` 
+
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/8e977bc7-d7e9-4b35-a544-08c17497670f)
+
 4. Program akan bisa menggagalkan kegiatan user setiap detik dan fitur ini juga bisa dimatikan
    `./admin -c farand` untuk menjalankan fitur
    `./admin -a farand` untuk mematikan fitur
 
-5. Kemudian ketika kegiatan user digagalkan maka program akan melog dan menset log tersebut sebagai **GAGAL**. Dan jika di log menggunakan fitur poin ke 3, log akan ditulis dengan **JALAN**
+   Berikut adalah yang terjadi ketika saya menjalankan `./admin -c farand`
 
-## Soal 3
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/8b275f0a-af5d-439e-b4c5-51fcc00bc7ec)
+
+   Maka dengan fitur tersebut kegiatan user juga akan digagalkan setiap detiknya kemudian agar kegiatan user dapat berjalan
+   tanpa gagal maka kita akan menjalankan perintah `./admin -a farand` maka dengan begitu kegiatan user akan berjalan
+   normal lagi seperti berikut :
+
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/408d1c85-6d8f-41f0-9c4a-b2979ad8855e)
+
+   Dengan begitu kegiatan user akan berjalan seperti awla dan berjalan setiap detiknya.
+
+5. Kemudian ketika kegiatan user digagalkan maka program akan melog dan menset log tersebut sebagai **GAGAL**. Dan jika di
+   log menggunakan fitur poin ke 3, log akan ditulis dengan **JALAN**. Berikut adalah contoh perbedaan ketika kegiatan user
+   GAGAL maupun JALAN :
+
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/198b805a-705e-4c32-bf39-2ced178286ca)
+
 
 ## Soal 4
