@@ -74,7 +74,12 @@
     fprintf(log_file, "%s", log_entry);
     fclose(log_file);
    }
-   ```   
+   ```
+4. Program akan bisa menggagalkan kegiatan user setiap detik dan fitur ini juga bisa dimatikan
+   `./admin -c farand` untuk menjalankan fitur
+   `./admin -a farand` untuk mematikan fitur
+
+5. Kemudian ketika kegiatan user digagalkan maka program akan melog dan menset log tersebut sebagai **GAGAL**. Dan jika di log menggunakan fitur poin ke 3, log akan ditulis dengan **JALAN**
 
 ## Soal 3
 
