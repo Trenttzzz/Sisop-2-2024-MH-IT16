@@ -116,3 +116,84 @@
 
 
 ## Soal 4
+#### Langkah - Langkah
+
+1. Saya menggunakan 4 fungsi utama yang dimana untuk menjalankan aplikasi, kemudian membaca file.conf yang berisikan
+   aplikasi yang akan dijalankan kemudian fungsi untuk menutup aplikasi yang telah dibuka kemudian fungsi utama.
+
+   **Membuka Aplikasi**
+   ```c
+   void openApps(char *app, int num) {
+    pid_t pid;
+
+    for (int i = 0; i < num; i++) {
+        pid = fork();
+
+        if (pid < 0) {
+            perror("Fork gagal");
+            exit(EXIT_FAILURE);
+        } else if (pid == 0) {
+            execlp(app, app, NULL);
+            perror("Exec gagal");
+            exit(EXIT_FAILURE);
+        } else {
+            // Proses utama
+            app_pids[app_count++] = pid;
+        }
+    }
+   }
+   ```
+   **Membaca file.conf**
+   ```c
+   void openAppsFromFile(char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error membuka file.\n");
+        return;
+    }
+
+    char app[50];
+    int num;
+    while (fscanf(file, "%s %d", app, &num) != EOF) {
+        openApps(app, num);
+    }
+
+    fclose(file);
+   }
+   ```
+   **Menutup aplikasi**
+   ```c
+   void closeAllApps() {
+    printf("Menutup semua aplikasi...\n");
+    // Mengirim sinyal SIGKILL ke semua aplikasi yang dibuka
+    for (int i = 0; i < app_count; i++) {
+        kill(app_pids[i], SIGKILL);
+    }
+   }
+   ```
+
+2. Dengan begitu kita bisa mulai menjalankan perintah yang pertama yaitu `./setup -o firefox 2 wireshark 2` yang dimana
+   perintah tersebut untuk meberi perintah membuka 2 tab firefox dan 2 tab wireshark. Berikut adalah contoh ketika 2 tab
+   firefox dan 2 tab wireshark terbuka: 
+
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/cf11b6f7-a640-417d-ba1f-174c473c33de)
+
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/fcbbe7d5-b676-4863-b17c-9b8936c77ee7)
+
+3. Kemudian langkah selanjutnya adalah membuat *`file.conf`* agar kita bisa menjalankan perintah untuk membuka aplikasi
+   melalui konfigurasi. *`file.conf`* itu sendiri berisikan _firefox 2 wireshark 3_ yang berarti ketika *`file.conf`*
+   dijalankan maka akan membuka 2 tab firefox dan 3 tab wireshark.
+
+   ![image](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/152785029/b27a2e77-c317-4c06-869b-c813b3cb1ecb)
+
+4. Maka dengan fungsi `void closeAllApps()` yang ada ada program saya, menggunakan perintah  `setup-k` akan mematikan semua
+   aplikasi yang dijalankan dengan program tersebut. Kemudian begitu juga dengan perintah `setup -k file.conf` maka program
+   juga dapat mematikan aplikasi yang dijalankan sesuai dengan file konfigurasinya
+
+
+
+
+
+   
+   
+   
