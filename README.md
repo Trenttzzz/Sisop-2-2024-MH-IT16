@@ -104,7 +104,6 @@
 
     ```c
     int main(int argc, char *argv[]) {
-
         // daemonize
         pid_t pid = fork();
 
@@ -130,28 +129,33 @@
         // declare folderpath dari argv
         char *folderPath = argv[1];
         struct dirent *entry;
-        DIR *dir = opendir(folderPath);
 
-        if (dir == NULL) {
-            perror("Error opening directory");
-            return 1;
-        }
+        // loop agar program berjalan terus menerus
+        while (1) {
+            DIR *dir = opendir(folderPath);
 
-        while ((entry = readdir(dir)) != NULL) {
-            if (entry->d_type == DT_REG) {
-                char filePath[MAX_PATH_LENGTH];
-                snprintf(filePath, sizeof(filePath), "%s/%s", folderPath, entry->d_name);
-
-                rewriteFile(filePath, "m4LwAr3", "[MALWARE]");
-                rewriteFile(filePath, "5pYw4R3", "[SPYWARE]");
-                rewriteFile(filePath, "R4nS0mWaR3", "[RANSOMWARE]");
-
-                recordlog(entry->d_name);
+            if (dir == NULL) {
+                perror("Error opening directory");
+                return 1;
             }
+
+            while ((entry = readdir(dir)) != NULL) {
+                if (entry->d_type == DT_REG) {
+                    char filePath[MAX_PATH_LENGTH];
+                    snprintf(filePath, sizeof(filePath), "%s/%s", folderPath, entry->d_name);
+
+                    rewriteFile(filePath, "m4LwAr3", "[MALWARE]");
+                    rewriteFile(filePath, "5pYw4R3", "[SPYWARE]");
+                    rewriteFile(filePath, "R4nS0mWaR3", "[RANSOMWARE]");
+
+                    recordlog(entry->d_name);
+                }
+            }
+
+            closedir(dir);
+            sleep(15); // jeda 15 detik
         }
 
-        closedir(dir);
-        sleep(15); // jeda 15 detik
         return 0;
     }
     ```
@@ -165,19 +169,28 @@
     ```
     berikut adalah isi file sebelum diubah text **suspicious** nya
 
-    (gambar sebelum)
+    ![file_1_before](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/141043792/c362c67b-13dc-4049-95ae-be60a680c93a)
+
+   ![file_2_before](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/141043792/2ad69509-4721-4767-ad1b-f6e6391a9c40)
+
 
     lalu berikut adalah isi file sesudah file dijalankan
 
-    (gambar sesudah)
+    ![file_1_after](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/141043792/301bc440-205c-471f-b799-b0b019f858e5)
+
+   ![file_2_after](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/141043792/c903280b-5c4a-46d2-866b-de45ccab2f7c)
+
+
 
     untuk membuktikan program tersebut berjalan pada background kita bisa cek pid nya dengan `pgrep -fl <filename>`
 
-    (gambar pgrep -fl )
+    ![pgrep_fl](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/141043792/d4160189-169e-46e7-84ed-2e6dd728b241)
+
 
     lalu cek dengan `ps aux | grep <pid>`
     
-    (gambar ps aux)
+    ![ps_aux](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/141043792/44d5d0bb-9a8e-45ff-b19a-ec140f361b65)
+
 
 
 ## Soal 2
