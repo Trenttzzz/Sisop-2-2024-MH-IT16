@@ -5,7 +5,7 @@
 #include <unistd.h> // untuk fork dan setsid
 #include <dirent.h>
 #include <sys/stat.h>
-#include <sys/types.h>
+#include <sys/types.h> // buat pid_t
 #include <time.h> // mencatat waktu
 
 #define MAX_PATH_LENGTH 4096 //ukuran maksimal path 
@@ -80,7 +80,6 @@ void recordlog(char *fileName) {
 }
 
 int main(int argc, char *argv[]) {
-
     // daemonize
     pid_t pid = fork();
 
@@ -106,27 +105,32 @@ int main(int argc, char *argv[]) {
     // declare folderpath dari argv
     char *folderPath = argv[1];
     struct dirent *entry;
-    DIR *dir = opendir(folderPath);
 
-    if (dir == NULL) {
-        perror("Error opening directory");
-        return 1;
-    }
+    // loop agar program berjalan terus menerus
+    while (1) {
+        DIR *dir = opendir(folderPath);
 
-    while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_REG) {
-            char filePath[MAX_PATH_LENGTH];
-            snprintf(filePath, sizeof(filePath), "%s/%s", folderPath, entry->d_name);
-
-            rewriteFile(filePath, "m4LwAr3", "[MALWARE]");
-            rewriteFile(filePath, "5pYw4R3", "[SPYWARE]");
-            rewriteFile(filePath, "R4nS0mWaR3", "[RANSOMWARE]");
-
-            recordlog(entry->d_name);
+        if (dir == NULL) {
+            perror("Error opening directory");
+            return 1;
         }
+
+        while ((entry = readdir(dir)) != NULL) {
+            if (entry->d_type == DT_REG) {
+                char filePath[MAX_PATH_LENGTH];
+                snprintf(filePath, sizeof(filePath), "%s/%s", folderPath, entry->d_name);
+
+                rewriteFile(filePath, "m4LwAr3", "[MALWARE]");
+                rewriteFile(filePath, "5pYw4R3", "[SPYWARE]");
+                rewriteFile(filePath, "R4nS0mWaR3", "[RANSOMWARE]");
+
+                recordlog(entry->d_name);
+            }
+        }
+
+        closedir(dir);
+        sleep(15); // jeda 15 detik
     }
 
-    closedir(dir);
-    sleep(15); // jeda 15 detik
     return 0;
 }
