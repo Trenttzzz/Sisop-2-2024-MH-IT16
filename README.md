@@ -160,7 +160,9 @@
     }
     ```
     ketika saya menjalankan kode diatas akan menjadi seperti ini:
-    (gambar terminal)
+   
+    ![terminal_run](https://github.com/Trenttzzz/Sisop-2-2024-MH-IT16/assets/141043792/8154d796-5c1a-4492-871c-ca654d8f4654)
+
 
     lalu berikut adalah isi dari log file yang terbentuk:
     ```log
